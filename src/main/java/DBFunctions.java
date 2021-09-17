@@ -1,5 +1,5 @@
 public interface DBFunctions {
     void create();
-    void write();
-    void read();
+    void write(DataCustomers dataCustomers, DataCards dataCards);
+    void read(DataCustomers dataCustomers, DataCards dataCards);
 }
