@@ -1,13 +1,13 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Customer {
     private Integer id;
     private String name;
     private String lastName;
-    private Date birthDate;
+    private LocalDate birthDate;
     private String email;
 
-    public Customer(Integer id, String name, String lastName, Date birthDate, String email) {
+    public Customer(Integer id, String name, String lastName, LocalDate birthDate, String email) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -39,11 +39,11 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 

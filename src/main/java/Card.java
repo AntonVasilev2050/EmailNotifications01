@@ -1,13 +1,13 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Card {
     private Customer customer;
     private long cardNumber;
-    private Date dateOfIssue;
-    private Date dateOfExpiration;
+    private LocalDate dateOfIssue;
+    private LocalDate dateOfExpiration;
     private boolean status;
 
-    public Card(Customer customer, long cardNumber, Date dateOfIssue, Date dateOfExpiration, boolean status) {
+    public Card(Customer customer, long cardNumber, LocalDate dateOfIssue, LocalDate dateOfExpiration, boolean status) {
         this.customer = customer;
         this.cardNumber = cardNumber;
         this.dateOfIssue = dateOfIssue;
@@ -31,19 +31,19 @@ public class Card {
         this.cardNumber = cardNumber;
     }
 
-    public Date getDateOfIssue() {
+    public LocalDate getDateOfIssue() {
         return dateOfIssue;
     }
 
-    public void setDateOfIssue(Date dateOfIssue) {
+    public void setDateOfIssue(LocalDate dateOfIssue) {
         this.dateOfIssue = dateOfIssue;
     }
 
-    public Date getDateOfExpiration() {
+    public LocalDate getDateOfExpiration() {
         return dateOfExpiration;
     }
 
-    public void setDateOfExpiration(Date dateOfExpiration) {
+    public void setDateOfExpiration(LocalDate dateOfExpiration) {
         this.dateOfExpiration = dateOfExpiration;
     }
 
