@@ -1,5 +1,6 @@
 import java.io.*;
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.Random;
 
 public class DBFunctionsImp implements DBFunctions {
@@ -78,8 +79,14 @@ public class DBFunctionsImp implements DBFunctions {
     }
 
     @Override
-    public boolean setCardClosed() {
+    public boolean setCardClosed(long cardNumberToSetClose) {
         read();
+        for (long number: dataCards.keySet()){
+            if(number == cardNumberToSetClose){
+                dataCards.get(cardNumberToSetClose).setActive(false);
+                return true;
+            }
+        }
         return false;
     }
 
