@@ -1,13 +1,14 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Customer {
-    private Integer id;
+public class Customer implements Serializable {
+    private int id;
     private String name;
     private String lastName;
     private LocalDate birthDate;
     private String email;
 
-    public Customer(Integer id, String name, String lastName, LocalDate birthDate, String email) {
+    public Customer(int id, String name, String lastName, LocalDate birthDate, String email) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -15,11 +16,11 @@ public class Customer {
         this.email = email;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -64,5 +65,27 @@ public class Customer {
                 ", birthDate=" + birthDate +
                 ", email='" + email + '\'' +
                 '}';
+    }
+    //'equals' checks all except 'id'
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Customer customer = (Customer) o;
+
+        if (name != null ? !name.equals(customer.name) : customer.name != null) return false;
+        if (lastName != null ? !lastName.equals(customer.lastName) : customer.lastName != null) return false;
+        if (birthDate != null ? !birthDate.equals(customer.birthDate) : customer.birthDate != null) return false;
+        return email != null ? email.equals(customer.email) : customer.email == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        return result;
     }
 }

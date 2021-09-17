@@ -1,18 +1,19 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Card {
-    private Customer customer;
+public class Card  implements Serializable {
     private long cardNumber;
+    private Customer customer;
     private LocalDate dateOfIssue;
     private LocalDate dateOfExpiration;
-    private boolean status;
+    private boolean active;
 
-    public Card(Customer customer, long cardNumber, LocalDate dateOfIssue, LocalDate dateOfExpiration, boolean status) {
+    public Card( long cardNumber,Customer customer, LocalDate dateOfIssue, LocalDate dateOfExpiration, boolean active) {
         this.customer = customer;
         this.cardNumber = cardNumber;
         this.dateOfIssue = dateOfIssue;
         this.dateOfExpiration = dateOfExpiration;
-        this.status = status;
+        this.active = active;
     }
 
     public Customer getCustomer() {
@@ -47,12 +48,12 @@ public class Card {
         this.dateOfExpiration = dateOfExpiration;
     }
 
-    public boolean isStatus() {
-        return status;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override
@@ -62,7 +63,7 @@ public class Card {
                 ", cardNumber=" + cardNumber +
                 ", dateOfIssue=" + dateOfIssue +
                 ", dateOfExpiration=" + dateOfExpiration +
-                ", status=" + status +
+                ", status=" + active +
                 '}';
     }
 }
