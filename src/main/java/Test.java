@@ -1,10 +1,11 @@
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        DataCustomers dataCustomers = DataCustomers.getInstance();
-        DataCards dataCards = DataCards.getInstance();
+//        DataCustomers dataCustomers = DataCustomers.getInstance();
+//        DataCards dataCards = DataCards.getInstance();
         DBFunctionsImp dbFunctionsImp = new DBFunctionsImp();
 //        Customer customer1 = new Customer(1, "Nick", "Ivanov", LocalDate.of(2000, Month.FEBRUARY, 22), "nick@mail.com");
 //        Customer customer2 = new Customer(2, "Boris", "Petrov", LocalDate.of(1988, Month.JULY, 10), "boris@mail.com");
@@ -31,17 +32,17 @@ public class Test {
 //        dataCards.clear();
 //        dataCustomers.clear();
 
-        dbFunctionsImp.addCustomer("Ivan554", "Ivanov", LocalDate.of(1990, 3, 20),"ivanov554@gmail.com");
-        int idAdded = dbFunctionsImp.addCustomer("Ivan4", "Ivanov", LocalDate.of(1990, 3, 20),"ivanov@gmail.com");
-        dbFunctionsImp.addCustomer("Ivan3", "Ivanov", LocalDate.of(1990, 3, 20),"ivanov@gmail.com");
-        System.out.println(dbFunctionsImp.dataCustomers);
-        dbFunctionsImp.read();
-        System.out.println(idAdded);
-        System.out.println(dbFunctionsImp.dataCustomers.size());
 
+        dbFunctionsImp.addCard(dbFunctionsImp.dataCustomers.get(6), LocalDate.of(2020, 5, 15), LocalDate.of(2022, 10, 4), true);
+        for (Long key: dbFunctionsImp.dataCards.keySet()){
+            System.out.println(dbFunctionsImp.dataCards.get(key).getCardNumber() + " " + dbFunctionsImp.dataCards.get(key).getDateOfExpiration());
+        }
+        List<Card> lc = CardsHandler.findExpiresSoon();
 
-//        dataCustomers.put
-//        dataCards.put()
+        System.out.println("---------");
+        for (Card card: lc){
+            System.out.println(card.getCardNumber() + " " + card.getCustomer() + " " + card.getDateOfExpiration());
+        }
     }
 
 }
