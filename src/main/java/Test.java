@@ -1,8 +1,11 @@
-import java.time.LocalDate;
-import java.time.Month;
+import accessories.Info;
+
 import java.util.List;
 
 public class Test {
+    private static tls.Sender tlsSender = new tls.Sender("sberschooltest@gmail.com", Info.emailFromPass);
+    private static ssl.Sender sslSender = new ssl.Sender("sberschooltest@gmail.com", Info.emailFromPass);
+
     public static void main(String[] args) {
 //        DataCustomers dataCustomers = DataCustomers.getInstance();
 //        DataCards dataCards = DataCards.getInstance();
@@ -23,26 +26,29 @@ public class Test {
 //        dataCards.put(card3.getCardNumber(), card3);
 //        dataCards.put(card4.getCardNumber(), card4);
         dbFunctionsImp.read();
-        System.out.println(dbFunctionsImp.dataCustomers);
-        for (Long key: dbFunctionsImp.dataCards.keySet()){
-            System.out.println(key + " " + dbFunctionsImp.dataCards.get(key).getCustomer());
-        }
+//        System.out.println(dbFunctionsImp.dataCustomers);
+//        for (Long key: dbFunctionsImp.dataCards.keySet()){
+//            System.out.println(key + " " + dbFunctionsImp.dataCards.get(key).getCustomer());
+//        }
 //        dbFunctionsImp.create();
 //        dbFunctionsImp.write(dataCustomers, dataCards);
 //        dataCards.clear();
 //        dataCustomers.clear();
 
 
-        dbFunctionsImp.addCard(dbFunctionsImp.dataCustomers.get(6), LocalDate.of(2020, 5, 15), LocalDate.of(2022, 10, 4), true);
+//        dbFunctionsImp.addCard(dbFunctionsImp.dataCustomers.get(6), LocalDate.of(2020, 5, 15), LocalDate.of(2022, 10, 4), true);
         for (Long key: dbFunctionsImp.dataCards.keySet()){
-            System.out.println(dbFunctionsImp.dataCards.get(key).getCardNumber() + " " + dbFunctionsImp.dataCards.get(key).getDateOfExpiration());
+            System.out.println(dbFunctionsImp.dataCards.get(key).getCardNumber() + " " + dbFunctionsImp.dataCards.get(key).getExpirationDate());
         }
         List<Card> lc = CardsHandler.findExpiresSoon();
 
         System.out.println("---------");
         for (Card card: lc){
-            System.out.println(card.getCardNumber() + " " + card.getCustomer() + " " + card.getDateOfExpiration());
+            System.out.println(card.getCardNumber() + " " + card.getCustomer() + " " + card.getExpirationDate());
         }
+
+        tlsSender.send("Subject TLS", "TLS: This is a message to remind you about...", "sberschooltest@gmail.com", "vasilev.anton.v@gmail.com");
+        sslSender.send("Subject SSL ", "SSL: This is a message to remind you about...", "sberschooltest@gmail.com", "vasilev.anton.v@gmail.com");
     }
 
 }

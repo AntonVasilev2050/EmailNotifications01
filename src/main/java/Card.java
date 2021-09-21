@@ -4,15 +4,15 @@ import java.time.LocalDate;
 public class Card  implements Serializable {
     private long cardNumber;
     private Customer customer;
-    private LocalDate dateOfIssue;
-    private LocalDate dateOfExpiration;
+    private LocalDate IssueDate;
+    private LocalDate ExpirationDate;
     private boolean active;
 
-    public Card( long cardNumber,Customer customer, LocalDate dateOfIssue, LocalDate dateOfExpiration, boolean active) {
+    public Card( long cardNumber,Customer customer, LocalDate IssueDate, LocalDate ExpirationDate, boolean active) {
         this.customer = customer;
         this.cardNumber = cardNumber;
-        this.dateOfIssue = dateOfIssue;
-        this.dateOfExpiration = dateOfExpiration;
+        this.IssueDate = IssueDate;
+        this.ExpirationDate = ExpirationDate;
         this.active = active;
     }
 
@@ -32,20 +32,20 @@ public class Card  implements Serializable {
         this.cardNumber = cardNumber;
     }
 
-    public LocalDate getDateOfIssue() {
-        return dateOfIssue;
+    public LocalDate getIssueDate() {
+        return IssueDate;
     }
 
-    public void setDateOfIssue(LocalDate dateOfIssue) {
-        this.dateOfIssue = dateOfIssue;
+    public void setIssueDate(LocalDate issueDate) {
+        this.IssueDate = issueDate;
     }
 
-    public LocalDate getDateOfExpiration() {
-        return dateOfExpiration;
+    public LocalDate getExpirationDate() {
+        return ExpirationDate;
     }
 
-    public void setDateOfExpiration(LocalDate dateOfExpiration) {
-        this.dateOfExpiration = dateOfExpiration;
+    public void setExpirationDate(LocalDate expirationDate) {
+        this.ExpirationDate = expirationDate;
     }
 
     public boolean isActive() {
@@ -61,8 +61,8 @@ public class Card  implements Serializable {
         return "Card{" +
                 "customer=" + customer +
                 ", cardNumber=" + cardNumber +
-                ", dateOfIssue=" + dateOfIssue +
-                ", dateOfExpiration=" + dateOfExpiration +
+                ", Issue Date=" + IssueDate +
+                ", Expiration Date=" + ExpirationDate +
                 ", status=" + active +
                 '}';
     }

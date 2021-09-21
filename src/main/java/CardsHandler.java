@@ -1,3 +1,5 @@
+import accessories.Info;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +13,7 @@ public class CardsHandler {
         LocalDate today = LocalDate.now();
         for (Long cardNumber : dbFunctionsImp.dataCards.keySet()) {
             Card cardToCheck = dbFunctionsImp.dataCards.get(cardNumber);
-            LocalDate dateOfExpiration = cardToCheck.getDateOfExpiration();
+            LocalDate dateOfExpiration = cardToCheck.getExpirationDate();
             if (dateOfExpiration.isBefore(today.plusDays(30))) {
                 expiresSoonCardList.add(cardToCheck);
             }
@@ -19,20 +21,27 @@ public class CardsHandler {
         return expiresSoonCardList;
     }
 
-    public static void findExpired(){
+    public static void findExpired() {
         dbFunctionsImp.read();
         LocalDate today = LocalDate.now();
-        for (Long cardNumber : dbFunctionsImp.dataCards.keySet()){
+        for (Long cardNumber : dbFunctionsImp.dataCards.keySet()) {
             Card cardToCheck = dbFunctionsImp.dataCards.get(cardNumber);
-            LocalDate dateOfExpiration = cardToCheck.getDateOfExpiration();
-            if(dateOfExpiration.isAfter(today)){
+            LocalDate dateOfExpiration = cardToCheck.getExpirationDate();
+            if (dateOfExpiration.isAfter(today)) {
                 dbFunctionsImp.dataCards.get(cardNumber).setActive(false);
             }
             dbFunctionsImp.write(dbFunctionsImp.dataCustomers, dbFunctionsImp.dataCards);
         }
     }
 
-    public static void remind(List<Card> expiresSoonCardList){
+    public static void remind(List<Card> expiresSoonCardList) {
+        ssl.Sender sslSender = new ssl.Sender("sberschooltest@gmail.com", Info.emailFromPass);
+        for (Card card : expiresSoonCardList) {
+            String remindingMessage = String.format("Срок действия банковской карты %s заканчивается %s ",
+                    card.getCardNumber(), card.getExpirationDate());
+            String customerEmail = card.getCustomer().getEmail();
+            sslSender.send("Срок действия карты", remindingMessage, Info.emailFrom, customerEmail);
+        }
 
     }
 
