@@ -1,3 +1,5 @@
+package db;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -60,7 +62,7 @@ public class Card  implements Serializable {
 
     @Override
     public String toString() {
-        return "Card{" +
+        return "db.Card{" +
                 "cardNumber=" + cardNumber +
                 ", customer=" + customer +
                 ", IssueDate=" + IssueDate +

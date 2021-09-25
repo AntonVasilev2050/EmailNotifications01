@@ -1,4 +1,6 @@
 import accessories.Info;
+import db.Card;
+import db.DBFunctionsImp;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -40,7 +42,6 @@ public class CardsHandler {
 
     public static List<Card[]> generateNewCards(List<Card> expiredCardList){
         List<Card[]> expiredAndNewCardList = Collections.synchronizedList(new ArrayList<>());
-
         long newCardNumber;
         for (int i = 0; i < expiredCardList.size(); i++){
             Card[] cards = new Card[2];
@@ -60,7 +61,6 @@ public class CardsHandler {
             String customerEmail = card[1].getCustomer().getEmail();
             sslSender.send("Срок действия карты", remindingMessage, Info.emailFrom, customerEmail);
         }
-
     }
 
 }

@@ -1,3 +1,5 @@
+package db;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -60,7 +62,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "Customer{" +
+        return "db.Customer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +

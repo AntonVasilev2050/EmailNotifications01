@@ -1,3 +1,7 @@
+import db.Card;
+import db.Customer;
+import db.DBFunctionsImp;
+
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.*;
@@ -57,7 +61,7 @@ public class Main {
     }
 }
 
-class emailReminder implements Runnable {
+ class emailReminder implements Runnable {
     List<Card> expiredCardList = Collections.synchronizedList(new ArrayList<>());
     List<Card[]> expiredAndNewCardList = Collections.synchronizedList(new ArrayList<>());
 
@@ -74,6 +78,6 @@ class emailReminder implements Runnable {
             System.out.println(oldCard + " " + newCard);
         }
         System.out.println("an attempt finished");
-//        CardsHandler.remind(expiredCardList);
+        CardsHandler.remindAndNew(expiredAndNewCardList);
     }
 }

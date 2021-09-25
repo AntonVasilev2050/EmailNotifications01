@@ -1,6 +1,10 @@
-import java.util.HashMap;
+package db;
 
-public class DataCards extends HashMap<Long, Card> {
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.TreeMap;
+
+public class DataCards extends TreeMap<Long, Card> {
     private static DataCards cards;
     private DataCards(){}
     private final static Object LOCK = new Object();

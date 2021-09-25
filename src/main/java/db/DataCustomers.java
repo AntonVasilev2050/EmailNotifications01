@@ -1,6 +1,10 @@
-import java.util.HashMap;
+package db;
 
-public class DataCustomers extends HashMap<Integer, Customer>{
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.TreeMap;
+
+public class DataCustomers extends TreeMap<Integer, Customer> {
     private  static DataCustomers customers;
     private DataCustomers(){
     }

@@ -1,3 +1,5 @@
+package db;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.util.Iterator;
@@ -7,8 +9,8 @@ public class DBFunctionsImp implements DBFunctions {
     private static final String path = "C://temp/";
     private static final String customersFileName = "customers.data";
     private static final String cardsFileName = "cards.data";
-    DataCustomers dataCustomers = DataCustomers.getInstance();
-    DataCards dataCards = DataCards.getInstance();
+    public DataCustomers dataCustomers = DataCustomers.getInstance();
+    public DataCards dataCards = DataCards.getInstance();
     @Override
     public void create() {
         // Create Files
