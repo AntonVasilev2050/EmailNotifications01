@@ -1,6 +1,7 @@
 import db.Card;
 import db.Customer;
 import db.DBFunctionsImp;
+import gui.Administrate;
 
 import java.io.InputStreamReader;
 import java.time.LocalDate;
@@ -21,9 +22,12 @@ public class Main {
 
         ScheduledExecutorService scheduledExecutorService =
                 Executors.newScheduledThreadPool(1);
-        scheduledExecutorService.scheduleAtFixedRate(new emailReminder()
+        scheduledExecutorService.scheduleAtFixedRate(new EmailReminder()
                 , 0, 20, TimeUnit.SECONDS);
         Scanner scanner = new Scanner(new InputStreamReader(System.in));
+
+        Administrate.showOperatingScreen();
+
         String s = scanner.nextLine();
         while (true) {
             if (s.equals("e")) {
@@ -61,23 +65,3 @@ public class Main {
     }
 }
 
- class emailReminder implements Runnable {
-    List<Card> expiredCardList = Collections.synchronizedList(new ArrayList<>());
-    List<Card[]> expiredAndNewCardList = Collections.synchronizedList(new ArrayList<>());
-
-    @Override
-    public void run() {
-        expiredCardList = CardsHandler.findExpired();
-        for (Card card : expiredCardList) {
-            System.out.println("oldCard  " + card);
-        }
-        expiredAndNewCardList = CardsHandler.generateNewCards(expiredCardList);
-        for (Card[] cards : expiredAndNewCardList) {
-            Card oldCard = cards[0];
-            Card newCard = cards[1];
-            System.out.println(oldCard + " " + newCard);
-        }
-        System.out.println("an attempt finished");
-        CardsHandler.remindAndNew(expiredAndNewCardList);
-    }
-}

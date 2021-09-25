@@ -2,8 +2,6 @@ package db;
 
 import java.io.*;
 import java.time.LocalDate;
-import java.util.Iterator;
-import java.util.Random;
 
 public class DBFunctionsImp implements DBFunctions {
     private static final String path = "C://temp/";
