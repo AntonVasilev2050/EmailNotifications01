@@ -84,6 +84,7 @@ public class DBFunctionsImp implements DBFunctions {
         for (long number: dataCards.keySet()){
             if(number == cardNumberToSetClose){
                 dataCards.get(cardNumberToSetClose).setActive(false);
+                write(dataCustomers, dataCards);
                 return true;
             }
         }

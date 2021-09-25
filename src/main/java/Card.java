@@ -2,6 +2,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Card  implements Serializable {
+//    private static final long serialVersionUID = 4660237279054550832L;
+    private static final long serialVersionUID = 1L;
     private long cardNumber;
     private Customer customer;
     private LocalDate IssueDate;
@@ -59,11 +61,12 @@ public class Card  implements Serializable {
     @Override
     public String toString() {
         return "Card{" +
-                "customer=" + customer +
-                ", cardNumber=" + cardNumber +
-                ", Issue Date=" + IssueDate +
-                ", Expiration Date=" + ExpirationDate +
-                ", status=" + active +
-                '}';
+                "cardNumber=" + cardNumber +
+                ", customer=" + customer +
+                ", IssueDate=" + IssueDate +
+                ", ExpirationDate=" + ExpirationDate +
+                ", active=" + active +
+                '}' +
+                "\n";
     }
 }

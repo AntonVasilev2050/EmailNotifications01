@@ -11,9 +11,9 @@ Courtesy of: https://devcolibri.com/%D0%BA%D0%B0%D0%BA-%D0%BE%D1%82%D0%BF%D1%80%
 
 public class Sender {
 
-    private String username;
-    private String password;
-    private Properties props;
+    private final String username;
+    private final String password;
+    private final Properties props;
 
     public Sender(String username, String password) {
         this.username = username;

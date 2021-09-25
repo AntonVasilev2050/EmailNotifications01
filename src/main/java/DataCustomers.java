@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.Map;
 
 public class DataCustomers extends HashMap<Integer, Customer>{
     private  static DataCustomers customers;
