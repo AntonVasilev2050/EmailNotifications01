@@ -1,6 +1,8 @@
 import accessories.Info;
 import db.Card;
+import db.Customer;
 import db.DBFunctionsImp;
+import gui.AddUserScreen;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -40,10 +42,10 @@ public class CardsHandler {
         return expiredCardList;
     }
 
-    public static List<Card[]> generateNewCards(List<Card> expiredCardList){
+    public static List<Card[]> generateNewCards(List<Card> expiredCardList) {
         List<Card[]> expiredAndNewCardList = Collections.synchronizedList(new ArrayList<>());
         long newCardNumber;
-        for (int i = 0; i < expiredCardList.size(); i++){
+        for (int i = 0; i < expiredCardList.size(); i++) {
             Card[] cards = new Card[2];
             cards[0] = expiredCardList.get(i);
             newCardNumber = dbFunctionsImp.addCard(cards[0].getCustomer(), LocalDate.now(), LocalDate.now().plusYears(3), true);
@@ -64,18 +66,28 @@ public class CardsHandler {
     }
 
 }
+
 class EmailReminder implements Runnable {
     List<Card> expiredCardList = Collections.synchronizedList(new ArrayList<>());
     List<Card[]> expiredAndNewCardList = Collections.synchronizedList(new ArrayList<>());
+
 
     @Override
     public void run() {
         expiredCardList = CardsHandler.findExpired();
         expiredAndNewCardList = CardsHandler.generateNewCards(expiredCardList);
+
+
         for (Card[] cards : expiredAndNewCardList) {
             Card oldCard = cards[0];
             Card newCard = cards[1];
             System.out.println(oldCard + " " + newCard);
+        }
+        for (Customer customer : CardsHandler.dbFunctionsImp.dataCustomers.values()) {
+            System.out.println(customer.getName() + " "
+                    + customer.getLastName() + " "
+                    + customer.getBirthDate() + " "
+                    + customer.getEmail());
         }
         System.out.println("an attempt finished");
 //        CardsHandler.remindAndNew(expiredAndNewCardList);

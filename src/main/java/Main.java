@@ -22,8 +22,7 @@ public class Main {
 
         ScheduledExecutorService scheduledExecutorService =
                 Executors.newScheduledThreadPool(1);
-        scheduledExecutorService.scheduleAtFixedRate(new EmailReminder()
-                , 0, 20, TimeUnit.SECONDS);
+        scheduledExecutorService.scheduleAtFixedRate(new EmailReminder(), 0, 20, TimeUnit.SECONDS);
         Scanner scanner = new Scanner(new InputStreamReader(System.in));
 
         Administrate.showOperatingScreen();

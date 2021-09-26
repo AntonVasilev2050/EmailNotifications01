@@ -1,5 +1,8 @@
 package gui;
 
+import db.DBFunctions;
+import db.DBFunctionsImp;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -8,6 +11,8 @@ import java.awt.event.MouseListener;
 import java.time.LocalDate;
 
 public class AddUserScreen {
+    static DBFunctionsImp dbFunctionsImp = new DBFunctionsImp();
+
     public static void completeUserForm() {
         JFrame frameAddNewUser = new JFrame("Add new User");
         frameAddNewUser.setBounds(240, 20, 500, 400);
@@ -141,6 +146,7 @@ public class AddUserScreen {
                         throw new WrongDateOfBirthException();
                     }
                     System.out.println(name + " " + lastName + " " + birthDate + " " + email);
+                    dbFunctionsImp.addCustomer(name, lastName, birthDate, email);
                 } catch (NumberFormatException ex) {
                     System.out.println("Check the birth date fields, " + ex.getMessage());
                 } catch (Exception ex) {
