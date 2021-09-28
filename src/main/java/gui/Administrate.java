@@ -19,13 +19,13 @@ public class Administrate {
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new GridBagLayout());
         leftPanel.setBorder(new EmptyBorder(5, 10, 5, 10));
-        JButton buttonAddUser = new JButton("Создать пользователя");
+        JButton buttonAddUser = new JButton("Создать клиента");
         buttonAddUser.setPreferredSize(new Dimension(180,40));
         JButton buttonAddCard = new JButton("Создать карту");
         buttonAddCard.setPreferredSize(new Dimension(180,40));
         JButton buttonCancelCard = new JButton("Аннулировать карту");
         buttonCancelCard.setPreferredSize(new Dimension(180,40));
-        JButton buttonUsersList = new JButton("Список пользователей");
+        JButton buttonUsersList = new JButton("Список клиентов");
         buttonUsersList.setPreferredSize(new Dimension(180,40));
         JButton buttonCardsList = new JButton("Список карт");
         buttonCardsList.setPreferredSize(new Dimension(180,40));

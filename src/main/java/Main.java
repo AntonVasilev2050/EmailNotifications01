@@ -27,39 +27,7 @@ public class Main {
 
         Administrate.showOperatingScreen();
 
-        String s = scanner.nextLine();
-        while (true) {
-            if (s.equals("e")) {
-                scheduledExecutorService.shutdown();
-                break;
-            }
-            if (s.equals("1")) {
-                dbFunctionsImp.addCard(dbFunctionsImp.dataCustomers.get(1), LocalDate.of(2018, 9, 20), LocalDate.of(2021, 9, 24), true);
-//                dbFunctionsImp.write(dbFunctionsImp.dataCustomers, dbFunctionsImp.dataCards);
-            }
-            if (s.equals("2")) {
-                dbFunctionsImp.addCard(dbFunctionsImp.dataCustomers.get(2), LocalDate.of(2018, 9, 25), LocalDate.of(2021, 9, 24), true);
-//                dbFunctionsImp.write(dbFunctionsImp.dataCustomers, dbFunctionsImp.dataCards);
 
-            }
-            if (s.equals("3")) {
-                dbFunctionsImp.addCard(dbFunctionsImp.dataCustomers.get(1), LocalDate.of(2018, 9, 20), LocalDate.of(2022, 9, 12), true);
-//                dbFunctionsImp.write(dbFunctionsImp.dataCustomers, dbFunctionsImp.dataCards);
-            }
-            if (s.equals("4")) {
-                dbFunctionsImp.addCard(dbFunctionsImp.dataCustomers.get(2), LocalDate.of(2018, 9, 25), LocalDate.of(2022, 9, 17), true);
-//                dbFunctionsImp.write(dbFunctionsImp.dataCustomers, dbFunctionsImp.dataCards);
-
-            }
-            System.out.println("Main");
-            for (Card card : dbFunctionsImp.dataCards.values()) {
-                System.out.println(card.getCardNumber() + " " + card.getExpirationDate() + card.isActive());
-            }
-            for (Customer customer : dbFunctionsImp.dataCustomers.values()) {
-                System.out.println(customer.getId() + " " + customer.getName() + " " + customer.getEmail());
-            }
-            s = scanner.next();
-        }
 
     }
 }

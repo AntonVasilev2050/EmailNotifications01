@@ -1,6 +1,5 @@
 package gui;
 
-import db.DBFunctions;
 import db.DBFunctionsImp;
 
 import javax.swing.*;
@@ -10,28 +9,28 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.time.LocalDate;
 
-public class AddUserScreen {
+public class AddUserScreen extends JFrame {
     static DBFunctionsImp dbFunctionsImp = new DBFunctionsImp();
 
     public static void completeUserForm() {
         JFrame frameAddNewUser = new JFrame("Add new User");
         frameAddNewUser.setBounds(240, 20, 500, 400);
-//        frameAddNewUser.setResizable(false);
+        frameAddNewUser.setResizable(false);
 //        frameAddNewUser.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frameAddNewUser.setLayout(new BorderLayout());
 
         JPanel top = new JPanel();
         top.setBorder(new EmptyBorder(20, 0, 0, 0));
-        JLabel labelUser = new JLabel("Новый пользователь");
+        JLabel labelUser = new JLabel("Новый клиент");
         labelUser.setFont(new Font("Arial", Font.BOLD, 22));
         top.add(labelUser);
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
-        JLabel labelUserName = new JLabel("Имя пользователя:");
+        JLabel labelUserName = new JLabel("Имя клиента:");
         JLabel labelUserLastName = new JLabel("Фамилия:");
         JLabel labelUserBirthDate = new JLabel("Дата рождения:");
-        JLabel labelUserEmail = new JLabel("email пользователя:");
+        JLabel labelUserEmail = new JLabel("email клиента:");
         JTextField userName = new JTextField();
         Dimension textFieldDimension = new Dimension(100, 20);
         userName.setPreferredSize(textFieldDimension);
@@ -142,15 +141,13 @@ public class AddUserScreen {
                     birthDate = LocalDate.of(year, month, day);
                     String email = userEmail.getText().trim().toLowerCase();
                     if (birthDate.isAfter(LocalDate.now())) {
-                        System.out.print(birthDate + " ");
-                        throw new WrongDateOfBirthException();
+                        Message.wrongBirthdate();
+                    } else {
+                        dbFunctionsImp.addCustomer(name, lastName, birthDate, email);
+                        Message.newUserData(name, lastName, birthDate, email);
                     }
-                    System.out.println(name + " " + lastName + " " + birthDate + " " + email);
-                    dbFunctionsImp.addCustomer(name, lastName, birthDate, email);
-                } catch (NumberFormatException ex) {
-                    System.out.println("Check the birth date fields, " + ex.getMessage());
                 } catch (Exception ex) {
-                    System.out.println(ex.getMessage());
+                    Message.checkBirthdateFields(ex.getLocalizedMessage());
                 }
             }
 
