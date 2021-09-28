@@ -2,7 +2,6 @@ import accessories.Info;
 import db.Card;
 import db.Customer;
 import db.DBFunctionsImp;
-import gui.AddUserScreen;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

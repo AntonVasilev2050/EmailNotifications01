@@ -1,7 +1,11 @@
 package db;
 
+import gui.Message;
+
 import java.io.*;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 public class DBFunctionsImp implements DBFunctions {
     private static final String path = "C://temp/";
@@ -20,7 +24,7 @@ public class DBFunctionsImp implements DBFunctions {
             file = new File(path + cardsFileName);
             file.createNewFile();
         } catch (IOException e) {
-            e.printStackTrace();
+            Message.newDBCreated(path);
         }
     }
 
@@ -39,7 +43,6 @@ public class DBFunctionsImp implements DBFunctions {
     public void read() {
         try (ObjectInputStream inputStreamCustomers = new ObjectInputStream(new FileInputStream(path + customersFileName));
              ObjectInputStream inputStreamCards = new ObjectInputStream(new FileInputStream(path + cardsFileName))) {
-
             dataCustomers = (DataCustomers) inputStreamCustomers.readObject();
             dataCards = (DataCards) inputStreamCards.readObject();
         } catch (Exception e) {
@@ -48,19 +51,25 @@ public class DBFunctionsImp implements DBFunctions {
     }
 
     @Override
-    public int addCustomer(String name, String lastName, LocalDate birthDate, String email) {
+    public List<Object> addCustomer(String name, String lastName, LocalDate birthDate, String email) {
+        List<Object> result = Arrays.asList(false, 0);
         read();
         int newID =  dataCustomers.size() + 1;
         Customer customer = new Customer(newID, name, lastName, birthDate, email);
         for(Customer customerFromDB: dataCustomers.values()){
             //'equals' checks all except 'id'
             if(customer.equals(customerFromDB)){
-                return customerFromDB.getId();
+                //customer exists, no new one will be created
+                result.set(0, false);
+                result.set(1, customerFromDB.getId());
+                return result;
             }
         }
         dataCustomers.put(newID, customer);
         write(dataCustomers, dataCards);
-        return newID;
+        result.set(0, true);
+        result.set(1, newID);
+        return result;
     }
 
     @Override

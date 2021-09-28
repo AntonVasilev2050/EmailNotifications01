@@ -2,6 +2,7 @@ import db.Card;
 import db.Customer;
 import db.DBFunctionsImp;
 import gui.Administrate;
+import gui.UsersAndCardsManagement;
 
 import java.io.InputStreamReader;
 import java.time.LocalDate;
@@ -25,7 +26,7 @@ public class Main {
         scheduledExecutorService.scheduleAtFixedRate(new EmailReminder(), 0, 20, TimeUnit.SECONDS);
         Scanner scanner = new Scanner(new InputStreamReader(System.in));
 
-        Administrate.showOperatingScreen();
+        UsersAndCardsManagement.execute();
 
 
 

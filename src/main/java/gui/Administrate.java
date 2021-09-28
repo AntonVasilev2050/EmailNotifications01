@@ -1,7 +1,5 @@
 package gui;
 
-import com.sun.deploy.panel.JSmartTextArea;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -47,7 +45,7 @@ public class Administrate {
         buttonAddUser.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                AddUserScreen.completeUserForm();
+                UsersAndCardsManagement.execute();
             }
 
             @Override
