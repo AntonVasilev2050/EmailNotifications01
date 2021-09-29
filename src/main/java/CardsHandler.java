@@ -70,13 +70,10 @@ class EmailReminder implements Runnable {
     List<Card> expiredCardList = Collections.synchronizedList(new ArrayList<>());
     List<Card[]> expiredAndNewCardList = Collections.synchronizedList(new ArrayList<>());
 
-
     @Override
     public void run() {
         expiredCardList = CardsHandler.findExpired();
         expiredAndNewCardList = CardsHandler.generateNewCards(expiredCardList);
-
-
         for (Card[] cards : expiredAndNewCardList) {
             Card oldCard = cards[0];
             Card newCard = cards[1];

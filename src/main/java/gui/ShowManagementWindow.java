@@ -3,25 +3,24 @@ package gui;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.time.LocalDate;
 
-public class ShowWindow {
+public class ShowManagementWindow {
     public static JButton buttonCreateCustomer;
     public static JButton buttonFindCustomer;
     public static JButton buttonCreateCard;
     public static JButton buttonCloseCard;
-    public static JTextField userName;
-    public static JTextField userLastName;
-    public static JTextField userBirthDateY;
-    public static JTextField userBirthDateM;
-    public static JTextField userBirthDateD;
-    public static JTextField userEmail;
+    public static JTextField clientName;
+    public static JTextField clientLastName;
+    public static JTextField clientBirthDateY;
+    public static JTextField clientBirthDateM;
+    public static JTextField clientBirthDateD;
+    public static JTextField clientEmail;
+    public static JLabel labelClientCards;
+    public static JTextArea clientCards;
 
-    public ShowWindow(){
+    public ShowManagementWindow(){
         JFrame frameAddNewUser = new JFrame("Management");
-        frameAddNewUser.setBounds(240, 20, 550, 400);
+        frameAddNewUser.setBounds(100, 20, 750, 400);
 //        frameAddNewUser.setResizable(false);
         frameAddNewUser.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameAddNewUser.setLayout(new BorderLayout());
@@ -38,23 +37,24 @@ public class ShowWindow {
         JLabel labelUserLastName = new JLabel("Фамилия:");
         JLabel labelUserBirthDate = new JLabel("Дата рождения:");
         JLabel labelUserEmail = new JLabel("email клиента:");
-        userName = new JTextField();
-        Dimension textFieldDimension = new Dimension(100, 20);
-        userName.setPreferredSize(textFieldDimension);
-        userLastName = new JTextField();
-        userLastName.setPreferredSize(textFieldDimension);
-
-        userBirthDateY = new JTextField();
-        userBirthDateY.setPreferredSize(new Dimension(50, 20));
+        labelClientCards = new JLabel("Карты клиента");
+        clientName = new JTextField();
+        Dimension textFieldDimension = new Dimension(150, 20);
+        clientName.setPreferredSize(textFieldDimension);
+        clientLastName = new JTextField();
+        clientLastName.setPreferredSize(textFieldDimension);
+        clientBirthDateY = new JTextField();
+        clientBirthDateY.setPreferredSize(new Dimension(50, 20));
         JLabel labelY = new JLabel("Год");
-        userBirthDateM = new JTextField();
-        userBirthDateM.setPreferredSize(new Dimension(50, 20));
+        clientBirthDateM = new JTextField();
+        clientBirthDateM.setPreferredSize(new Dimension(50, 20));
         JLabel labelM = new JLabel("Месяц");
-        userBirthDateD = new JTextField();
-        userBirthDateD.setPreferredSize(new Dimension(50, 20));
+        clientBirthDateD = new JTextField();
+        clientBirthDateD.setPreferredSize(new Dimension(50, 20));
         JLabel labelD = new JLabel("День");
-        userEmail = new JTextField();
-        userEmail.setPreferredSize(textFieldDimension);
+        clientEmail = new JTextField();
+        clientEmail.setPreferredSize(textFieldDimension);
+        clientCards = new JTextArea("XXXX XXXX XXXX XXXX");
 
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
@@ -80,39 +80,40 @@ public class ShowWindow {
         c.gridx = 0;
         c.gridy = 5;
         panel.add(labelUserEmail, c);
+        c.gridx = 0;
+        c.gridy = 6;
+        panel.add(labelClientCards, c);
         c.gridx = 1;
         c.gridy = 0;
-        panel.add(userName, c);
+        panel.add(clientName, c);
         c.gridx = 1;
         c.gridy = 1;
-        panel.add(userLastName, c);
+        panel.add(clientLastName, c);
         c.gridx = 1;
         c.gridy = 2;
-        panel.add(userBirthDateY, c);
+        panel.add(clientBirthDateY, c);
         c.gridx = 1;
         c.gridy = 3;
-        panel.add(userBirthDateM, c);
+        panel.add(clientBirthDateM, c);
         c.gridx = 1;
         c.gridy = 4;
-        panel.add(userBirthDateD, c);
+        panel.add(clientBirthDateD, c);
         c.gridx = 1;
         c.gridy = 5;
-        panel.add(userEmail, c);
+        panel.add(clientEmail, c);
+        c.gridx = 1;
+        c.gridy = 6;
+        panel.add(clientCards, c);
         JPanel bottomPanel = new JPanel();
         bottomPanel.setBorder(new EmptyBorder(0, 0, 20, 0));
         buttonCreateCustomer = new JButton("Новый клиент");
         buttonFindCustomer = new JButton("Найти клиента");
         buttonCreateCard = new JButton("Новая карта");
         buttonCloseCard = new JButton("Аннулировать карту");
-
-//        buttonCreateCustomer.setPreferredSize(new Dimension(100, 30));
-
         bottomPanel.add(buttonCreateCustomer);
         bottomPanel.add(buttonFindCustomer);
         bottomPanel.add(buttonCreateCard);
         bottomPanel.add(buttonCloseCard);
-
-
         frameAddNewUser.add(top, BorderLayout.NORTH);
         frameAddNewUser.add(panel, BorderLayout.CENTER);
         frameAddNewUser.add(bottomPanel, BorderLayout.SOUTH);
