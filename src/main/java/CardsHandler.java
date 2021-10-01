@@ -54,7 +54,7 @@ public class CardsHandler {
         return expiredAndNewCardList;
     }
 
-    public static void remindAndNew(List<Card[]> expiredAndNewCardList) {
+    public static void remindAndCreateNew(List<Card[]> expiredAndNewCardList) {
         ssl.Sender sslSender = new ssl.Sender("sberschooltest@gmail.com", Info.emailFromPass);
         for (Card[] card : expiredAndNewCardList) {
             String remindingMessage = String.format("Срок действия банковской карты %s закончился %s. Выпущена новая карта: %s. ",
@@ -86,6 +86,6 @@ class EmailReminder implements Runnable {
                     + customer.getEmail());
         }
         System.out.println("an attempt finished");
-//        CardsHandler.remindAndNew(expiredAndNewCardList);
+//        CardsHandler.remindAndCreateNew(expiredAndNewCardList);
     }
 }
