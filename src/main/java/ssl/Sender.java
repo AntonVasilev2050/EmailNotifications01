@@ -1,5 +1,7 @@
 package ssl;
 
+import gui.ShowMessage;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -49,7 +51,8 @@ public class Sender {
             //отправляем сообщение
             Transport.send(message);
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            ShowMessage.messageNotSend(toEmail);
+//            throw new RuntimeException(e);
         }
     }
 }

@@ -1,6 +1,6 @@
 package db;
 
-import gui.Message;
+import gui.ShowMessage;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -24,7 +24,7 @@ public class DBFunctionsImp implements DBFunctions {
             file = new File(path + cardsFileName);
             file.createNewFile();
         } catch (IOException e) {
-            Message.newDBCreated(path);
+            ShowMessage.newDBCreated(path);
         }
     }
 
@@ -67,8 +67,8 @@ public class DBFunctionsImp implements DBFunctions {
         }
         dataCustomers.put(newID, customer);
         write(dataCustomers, dataCards);
-        result.set(0, true);
-        result.set(1, newID);
+        result.set(0, true); // customer was added
+        result.set(1, newID); // new customer's ID
         return result;
     }
 

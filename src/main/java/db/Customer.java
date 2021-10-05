@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Customer implements Serializable {
-//    private static final long serialVersionUID = 4384455016391460280L;
+    //    private static final long serialVersionUID = 4384455016391460280L;
     private static final long serialVersionUID = 1L;
     private int id;
     private String name;
@@ -62,14 +62,13 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "db.Customer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", birthDate=" + birthDate +
-                ", email='" + email + '\'' +
-                '}';
+        return "id=" + id +
+                ", " + name +
+                " " + lastName +
+                ", birthDate: " + birthDate +
+                ", email: " + email;
     }
+
     //'equals' checks all except 'id'
     @Override
     public boolean equals(Object o) {

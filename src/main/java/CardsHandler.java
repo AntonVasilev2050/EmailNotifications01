@@ -55,12 +55,12 @@ public class CardsHandler {
     }
 
     public static void remindAndCreateNew(List<Card[]> expiredAndNewCardList) {
-        ssl.Sender sslSender = new ssl.Sender("sberschooltest@gmail.com", Info.emailFromPass);
+        ssl.Sender sslSender = new ssl.Sender(Info.getEmailFrom(), Info.getEmailFromPass());
         for (Card[] card : expiredAndNewCardList) {
             String remindingMessage = String.format("Срок действия банковской карты %s закончился %s. Выпущена новая карта: %s. ",
                     card[0].getCardNumber(), card[0].getExpirationDate(), card[1].getCardNumber());
             String customerEmail = card[1].getCustomer().getEmail();
-            sslSender.send("Срок действия карты", remindingMessage, Info.emailFrom, customerEmail);
+            sslSender.send("Срок действия карты", remindingMessage, Info.getEmailFrom(), customerEmail);
         }
     }
 
@@ -74,18 +74,13 @@ class EmailReminder implements Runnable {
     public void run() {
         expiredCardList = CardsHandler.findExpired();
         expiredAndNewCardList = CardsHandler.generateNewCards(expiredCardList);
-        for (Card[] cards : expiredAndNewCardList) {
-            Card oldCard = cards[0];
-            Card newCard = cards[1];
-            System.out.println(oldCard + " " + newCard);
-        }
-        for (Customer customer : CardsHandler.dbFunctionsImp.dataCustomers.values()) {
-            System.out.println(customer.getName() + " "
-                    + customer.getLastName() + " "
-                    + customer.getBirthDate() + " "
-                    + customer.getEmail());
-        }
-        System.out.println("an attempt finished");
-//        CardsHandler.remindAndCreateNew(expiredAndNewCardList);
+//        for (Card[] cards : expiredAndNewCardList) {
+//            Card oldCard = cards[0];
+//            Card newCard = cards[1];
+//            System.out.println(oldCard + " " + newCard);
+//        }
+//        System.out.println("an attempt finished");
+
+        CardsHandler.remindAndCreateNew(expiredAndNewCardList);
     }
 }

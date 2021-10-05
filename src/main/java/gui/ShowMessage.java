@@ -3,12 +3,12 @@ package gui;
 import javax.swing.*;
 import java.time.LocalDate;
 
-public class Message {
+public class ShowMessage {
     public static void wrongBirthdate(){
         JOptionPane.showMessageDialog(null, "Дата рождения позже сегодняшнего дня", "Ошибка!", JOptionPane.WARNING_MESSAGE);
     }
 
-    public static void checkBirthdateFields(String message){
+    public static void checkFields(String message){
         JOptionPane.showMessageDialog(null, message, "Ошибка!", JOptionPane.ERROR_MESSAGE);
     }
 
@@ -40,5 +40,19 @@ public class Message {
     public static void customerNotFound(String name, String lastName, LocalDate birthDate, String email){
         String message = "Клиент: \n" + "Имя: " + name + " " + lastName + ", " + "\nДата рождения: " + birthDate + "\nemail: " + email + "\nНе найден!";
         JOptionPane.showMessageDialog(null, message, "Клиент не найден", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public static void cardNotFound(String cardToClose){
+        String message = "Карта: " + cardToClose + " не найдена!";
+        JOptionPane.showMessageDialog(null, message, "Ошибка!", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static String closeCard(){
+        return JOptionPane.showInputDialog(null, "Введите номер карты", "Аннулирование карты", JOptionPane.QUESTION_MESSAGE);
+    }
+
+    public static void messageNotSend(String toEmail){
+        String message = "Не удалось отправить сообщение на  " + toEmail ;
+        JOptionPane.showMessageDialog(null, message, "Ошибка!", JOptionPane.ERROR_MESSAGE);
     }
 }

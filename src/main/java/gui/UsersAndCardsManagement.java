@@ -21,6 +21,7 @@ public class UsersAndCardsManagement {
 
     public static void execute() {
         new ShowManagementWindow();
+        showCustomers();
         ShowManagementWindow.buttonCreateCard.addMouseListener(new MouseListener() {
 
             @Override
@@ -31,13 +32,14 @@ public class UsersAndCardsManagement {
                     dbFunctionsImp.read();
                     for (Customer customer : dbFunctionsImp.dataCustomers.values()) {
                         if (customerToAddCard.equals(customer)) {
-                            long newCardNumber = dbFunctionsImp.addCard(customer, LocalDate.now(), LocalDate.now().plusYears(3), true);
+//                            long newCardNumber = dbFunctionsImp.addCard(customer, LocalDate.now(), LocalDate.now().plusYears(3), true);
+                            long newCardNumber = dbFunctionsImp.addCard(customer, LocalDate.now().minusYears(3), LocalDate.now().minusDays(2), true);
                             showCardsOfCustomer(customer);
-                            Message.newCardAdded(newCardNumber, name, lastName, customer.getId());
+                            ShowMessage.newCardAdded(newCardNumber, name, lastName, customer.getId());
                         }
                     }
                 } catch (NumberFormatException ex) {
-                    Message.checkBirthdateFields(ex.getLocalizedMessage());
+                    ShowMessage.checkFields(ex.getLocalizedMessage());
                 }
             }
 
@@ -68,22 +70,24 @@ public class UsersAndCardsManagement {
                 try {
                     readForm();
                     if (birthDate.isAfter(LocalDate.now())) {
-                        Message.wrongBirthdate();
+                        ShowMessage.wrongBirthdate();
                     } else {
                         List<Object> result = dbFunctionsImp.addCustomer(name, lastName, birthDate, email);
                         //check if new customer was created
                         boolean isCreated = (boolean) result.get(0);
                         int id = (int) result.get(1);
                         if (isCreated) {
-                            Message.newCustomerData(id, name, lastName, birthDate, email);
+                            Customer customer = dbFunctionsImp.dataCustomers.get(id);
+                            showCardsOfCustomer(customer);
+                            showCustomers();
+                            ShowMessage.newCustomerData(id, name, lastName, birthDate, email);
                         } else {
-                            Message.customerAlreadyExists(id, name, lastName, birthDate, email);
+                            ShowMessage.customerAlreadyExists(id, name, lastName, birthDate, email);
                         }
-                        Customer customer = dbFunctionsImp.dataCustomers.get(id);
-                        showCardsOfCustomer(customer);
+
                     }
                 } catch (Exception ex) {
-                    Message.checkBirthdateFields(ex.getLocalizedMessage());
+                    ShowMessage.checkFields(ex.getLocalizedMessage());
                 }
             }
 
@@ -119,15 +123,81 @@ public class UsersAndCardsManagement {
                         if (customer.equals(customerToFind)) {
                             customerToFind = customer;
                             showCardsOfCustomer(customer);
-                            Message.customerFound(customer.getId(), customer.getName(), customer.getLastName(), customer.getBirthDate(), customer.getEmail());
+                            ShowMessage.customerFound(customer.getId(), customer.getName(), customer.getLastName(), customer.getBirthDate(), customer.getEmail());
                         }
                     }
                     if (customerToFind.getId() == 0) {
-                        Message.customerNotFound(name, lastName, birthDate, email);
+                        ShowMessage.customerNotFound(name, lastName, birthDate, email);
                     }
                 } catch (Exception ex) {
-                    Message.checkBirthdateFields(ex.getLocalizedMessage());
+                    ShowMessage.checkFields(ex.getLocalizedMessage());
                 }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        ShowManagementWindow.buttonCloseCard.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Long cardToClose = null;
+                String s = "";
+                try {
+                    s = ShowMessage.closeCard().trim();
+                    cardToClose = Long.parseLong(s);
+                    dbFunctionsImp.dataCards.get(cardToClose).setActive(false);
+                    dbFunctionsImp.write(dbFunctionsImp.dataCustomers, dbFunctionsImp.dataCards);
+//                    showCardsOfCustomer();
+                } catch (NumberFormatException ex) {
+                    ShowMessage.checkFields(ex.getLocalizedMessage());
+                } catch (NullPointerException npe) {
+                    ShowMessage.cardNotFound(s);
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        ShowManagementWindow.buttonCustomersList.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                showCustomers();
             }
 
             @Override
@@ -153,13 +223,13 @@ public class UsersAndCardsManagement {
     }
 
     private static void readForm() {
-        name = ShowManagementWindow.clientName.getText().trim().toUpperCase();
-        lastName = ShowManagementWindow.clientLastName.getText().trim().toUpperCase();
-        year = Integer.parseInt(ShowManagementWindow.clientBirthDateY.getText().trim());
-        month = Integer.parseInt(ShowManagementWindow.clientBirthDateM.getText().trim());
-        day = Integer.parseInt(ShowManagementWindow.clientBirthDateD.getText().trim());
+        name = ShowManagementWindow.customerName.getText().trim().toUpperCase();
+        lastName = ShowManagementWindow.customerLastName.getText().trim().toUpperCase();
+        year = Integer.parseInt(ShowManagementWindow.customerBirthDateY.getText().trim());
+        month = Integer.parseInt(ShowManagementWindow.customerBirthDateM.getText().trim());
+        day = Integer.parseInt(ShowManagementWindow.customerBirthDateD.getText().trim());
         birthDate = LocalDate.of(year, month, day);
-        email = ShowManagementWindow.clientEmail.getText().trim().toLowerCase();
+        email = ShowManagementWindow.customerEmail.getText().trim().toLowerCase();
     }
 
     private static void showCardsOfCustomer(Customer customer) {
@@ -167,9 +237,23 @@ public class UsersAndCardsManagement {
         dbFunctionsImp.read();
         for (Card card : dbFunctionsImp.dataCards.values()) {
             if (card.getCustomer().equals(customer)) {
-                cards.append(card.getCardNumber()).append("\n");
+                if (!card.isActive()) {
+                    cards.append(card.getCardNumber()).append(" - closed\n");
+                } else {
+                    cards.append(card.getCardNumber()).append("\n");
+                }
             }
         }
-        ShowManagementWindow.clientCards.setText(String.valueOf(cards));
+        ShowManagementWindow.customerCards.setText(String.valueOf(cards));
+    }
+
+    private static void showCustomers() {
+        ShowManagementWindow.customersList.setText("");
+        ShowManagementWindow.customersList.append("      Список клиентов \n ");
+        dbFunctionsImp.read();
+        for (Customer customer : dbFunctionsImp.dataCustomers.values()) {
+            ShowManagementWindow.customersList.append(customer + " \n ");
+        }
+        ShowManagementWindow.customersList.repaint();
     }
 }
