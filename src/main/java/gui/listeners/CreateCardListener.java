@@ -27,7 +27,11 @@ public class CreateCardListener implements MouseListener {
             dbFunctionsImp.read();
             for (Customer customer : dbFunctionsImp.dataCustomers.values()) {
                 if (customerToAddCard.equals(customer)) {
-//                            long newCardNumber = dbFunctionsImp.addCard(customer, LocalDate.now(), LocalDate.now().plusYears(3), true);
+//                            long newCardNumber = dbFunctionsImp.addCard(
+//                                    customer,
+//                                    LocalDate.now(),
+//                                    LocalDate.now().plusYears(3),
+//                                    true);
                     long newCardNumber = dbFunctionsImp.addCard(
                             customer,
                             LocalDate.now().minusYears(3),

@@ -2,6 +2,7 @@ import accessories.Info;
 import db.Card;
 import db.Customer;
 import db.DBFunctionsImp;
+import ssl.Sender;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -47,7 +48,11 @@ public class CardsHandler {
         for (int i = 0; i < expiredCardList.size(); i++) {
             Card[] cards = new Card[2];
             cards[0] = expiredCardList.get(i);
-            newCardNumber = dbFunctionsImp.addCard(cards[0].getCustomer(), LocalDate.now(), LocalDate.now().plusYears(3), true);
+            newCardNumber = dbFunctionsImp.addCard(
+                    cards[0].getCustomer(),
+                    LocalDate.now(),
+                    LocalDate.now().plusYears(3),
+                    true);
             cards[1] = dbFunctionsImp.dataCards.get(newCardNumber);
             expiredAndNewCardList.add(i, cards);
         }
@@ -55,7 +60,7 @@ public class CardsHandler {
     }
 
     public static void remindAndCreateNew(List<Card[]> expiredAndNewCardList) {
-        ssl.Sender sslSender = new ssl.Sender(Info.getEmailFrom(), Info.getEmailFromPass());
+        Sender sslSender = new ssl.Sender(Info.getEmailFrom(), Info.getEmailFromPass());
         for (Card[] card : expiredAndNewCardList) {
             String remindingMessage = String.format("Срок действия банковской карты %s закончился %s. Выпущена новая карта: %s. ",
                     card[0].getCardNumber(), card[0].getExpirationDate(), card[1].getCardNumber());
@@ -63,7 +68,6 @@ public class CardsHandler {
             sslSender.send("Срок действия карты", remindingMessage, Info.getEmailFrom(), customerEmail);
         }
     }
-
 }
 
 class EmailReminder implements Runnable {
@@ -79,7 +83,7 @@ class EmailReminder implements Runnable {
 //            Card newCard = cards[1];
 //            System.out.println(oldCard + " " + newCard);
 //        }
-//        System.out.println("an attempt finished");
+        System.out.println("an attempt finished");
 
         CardsHandler.remindAndCreateNew(expiredAndNewCardList);
     }

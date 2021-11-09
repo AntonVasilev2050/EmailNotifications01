@@ -12,7 +12,7 @@ public class Main {
         dbFunctionsImp.read();
         ScheduledExecutorService scheduledExecutorService =
                 Executors.newScheduledThreadPool(1);
-        scheduledExecutorService.scheduleAtFixedRate(new EmailReminder(), 0, 20, TimeUnit.SECONDS);
+        scheduledExecutorService.scheduleAtFixedRate(new EmailReminder(), 0, 60, TimeUnit.SECONDS);
 
         UsersAndCardsManagement.execute();
 

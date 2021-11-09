@@ -29,7 +29,12 @@ public class FindCustomerListener implements MouseListener {
                 if (customer.equals(customerToFind)) {
                     customerToFind = customer;
                     showCardsOfCustomer(customer);
-                    ShowMessage.customerFound(customer.getId(), customer.getName(), customer.getLastName(), customer.getBirthDate(), customer.getEmail());
+                    ShowMessage.customerFound(
+                            customer.getId(),
+                            customer.getName(),
+                            customer.getLastName(),
+                            customer.getBirthDate(),
+                            customer.getEmail());
                 }
             }
             if (customerToFind.getId() == 0) {
